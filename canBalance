@@ -1,0 +1,33 @@
+
+Given a non-empty array, return true if there is a place to split the array so that the sum of the numbers on one side is equal to the sum of the numbers on the other side.
+
+
+canBalance([1, 1, 1, 2, 1]) → true
+canBalance([2, 1, 1, 2, 1]) → false
+canBalance([10, 10]) → true
+
+
+public boolean canBalance(int[] arr) {
+    if (arr.length == 1) {
+        return false;
+    }
+    int leftSum = 0;
+    int rightSum = 0;
+    int leftIndex = 0;
+    int rightIndex = arr.length - 1;
+
+    while (leftIndex <= rightIndex) {
+        if (leftSum == rightSum) {
+            if (leftIndex == rightIndex) {
+                return false;
+            }
+            leftSum += arr[ leftIndex++ ];
+            rightSum += arr[ rightIndex-- ];
+        } else if (leftSum < rightSum) {
+            leftSum += arr[ leftIndex++ ];
+        } else {
+            rightSum += arr[ rightIndex-- ];
+        }
+    }
+    return leftSum == rightSum;
+}
